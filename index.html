@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Personal Accounting</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Login Page -->
+    <div id="loginPage" class="page active">
+        <div class="login-container">
+            <div class="login-card">
+                <div class="account-icon">
+                    <svg width="80" height="80" viewBox="0 0 80 80" fill="none">
+                        <circle cx="40" cy="40" r="38" stroke="#6366f1" stroke-width="4"/>
+                        <circle cx="40" cy="30" r="12" fill="#6366f1"/>
+                        <path d="M20 65C20 55 28 48 40 48C52 48 60 55 60 65" stroke="#6366f1" stroke-width="4" stroke-linecap="round"/>
+                    </svg>
+                </div>
+                <h1>Personal Accounting</h1>
+                <p class="subtitle">Manage your finances with ease</p>
+                
+                <form id="loginForm">
+                    <div class="input-group">
+                        <label for="username">Username</label>
+                        <input type="text" id="username" placeholder="Enter username" required>
+                    </div>
+                    
+                    <div class="input-group">
+                        <label for="password">Password</label>
+                        <input type="password" id="password" placeholder="Enter password" required>
+                    </div>
+                    
+                    <button type="submit" class="btn btn-primary">Login</button>
+                    
+                    <div id="loginError" class="error-message"></div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Dashboard Page -->
+    <div id="dashboardPage" class="page">
+        <div class="dashboard-container">
+            <header class="dashboard-header">
+                <h1>Personal Accounting</h1>
+                <div class="user-info">
+                    <span class="username">Ankan11</span>
+                    <button id="logoutBtn" class="btn btn-secondary">Logout</button>
+                </div>
+            </header>
+
+            <div class="dashboard-grid">
+                <!-- Balance Card -->
+                <div class="tile balance-tile">
+                    <div class="tile-header">
+                        <h3>Current Balance</h3>
+                        <span class="icon">💰</span>
+                    </div>
+                    <div class="balance-amount" id="currentBalance">₹0.00</div>
+                    <div class="balance-subtitle">Available balance</div>
+                </div>
+
+                <!-- Add Transaction Card -->
+                <div class="tile action-tile" onclick="openTransactionModal()">
+                    <div class="tile-header">
+                        <h3>Add Transaction</h3>
+                        <span class="icon">➕</span>
+                    </div>
+                    <p class="tile-description">Record credit or debit</p>
+                </div>
+
+                <!-- Savings Funds Card -->
+                <div class="tile action-tile" onclick="openSavingsFundsPage()">
+                    <div class="tile-header">
+                        <h3>Savings Funds</h3>
+                        <span class="icon">🏦</span>
+                    </div>
+                    <p class="tile-description">Manage your savings goals</p>
+                    <div class="tile-stats" id="savingsFundsCount">0 active funds</div>
+                </div>
+
+                <!-- Debts & Credits Card -->
+                <div class="tile action-tile" onclick="openDebtsPage()">
+                    <div class="tile-header">
+                        <h3>Debts & Credits</h3>
+                        <span class="icon">🤝</span>
+                    </div>
+                    <p class="tile-description">Track what you owe & are owed</p>
+                    <div class="tile-stats" id="debtsStats">₹0 pending</div>
+                </div>
+
+                <!-- Monthly Transactions Card -->
+                <div class="tile action-tile" onclick="openMonthlyPage()">
+                    <div class="tile-header">
+                        <h3>Monthly View</h3>
+                        <span class="icon">📅</span>
+                    </div>
+                    <p class="tile-description">View transactions by month</p>
+                </div>
+
+                <!-- Recent Transactions Card -->
+                <div class="tile recent-transactions-tile">
+                    <div class="tile-header">
+                        <h3>Recent Transactions</h3>
+                        <button class="link-btn" onclick="openAllTransactionsPage()">View All →</button>
+                    </div>
+                    <div id="recentTransactionsList" class="transactions-list">
+                        <div class="empty-state">No transactions yet</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Transaction Modal -->
+    <div id="transactionModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="modalTitle">Add Transaction</h2>
+                <button class="close-btn" onclick="closeTransactionModal()">&times;</button>
+            </div>
+            <form id="transactionForm">
+                <input type="hidden" id="editTransactionId">
+                
+                <div class="input-group">
+                    <label for="transactionType">Type</label>
+                    <select id="transactionType" required>
+                        <option value="credit">Credit (Money In)</option>
+                        <option value="debit">Debit (Money Out)</option>
+                    </select>
+                </div>
+
+                <div class="input-group">
+                    <label for="transactionAmount">Amount (₹)</label>
+                    <input type="number" id="transactionAmount" step="0.01" placeholder="0.00" required>
+                </div>
+
+                <div class="input-group">
+                    <label for="transactionCategory">Category</label>
+                    <input type="text" id="transactionCategory" placeholder="e.g., Food, Salary, Shopping" required>
+                </div>
+
+                <div class="input-group">
+                    <label for="transactionDescription">Description</label>
+                    <input type="text" id="transactionDescription" placeholder="Optional notes">
+                </div>
+
+                <div class="input-group">
+                    <label for="transactionDate">Date</label>
+                    <input type="date" id="transactionDate" required>
+                </div>
+
+                <div class="modal-actions">
+                    <button type="button" class="btn btn-secondary" onclick="closeTransactionModal()">Cancel</button>
+                    <button type="submit" class="btn btn-primary" id="saveTransactionBtn">Save Transaction</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <footer class="app-footer">
+  <div class="footer-left">
+    <span>Version 1</span>
+    <span>•</span>
+    <span>Created on 7/2/26</span>
+    <span>•</span>
+    <span>Designed by Ankan bhowmik</span>
+  </div>
+
+  <div class="footer-right">
+    <span id="live-time">--:--:--</span>
+  </div>
+</footer>
+
+    <script src="config.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
