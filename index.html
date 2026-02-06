@@ -7,6 +7,16 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+    <body>
+    <!-- Loading Screen -->
+    <div id="loadingScreen" class="loading-screen">
+        <div class="loading-content">
+            <div class="loading-spinner"></div>
+            <h2 class="loading-text">Personal Accounting</h2>
+            <p class="loading-subtext">Loading your dashboard...</p>
+        </div>
+    </div>
+
     <!-- Login Page -->
     <div id="loginPage" class="page active">
         <div class="login-container">
@@ -160,21 +170,24 @@
         </div>
     </div>
 
-    <footer class="app-footer">
-  <div class="footer-left">
-    <span>Version 1</span>
-    <span>•</span>
-    <span>Created on 7/2/26</span>
-    <span>•</span>
-    <span>Designed by Ankan bhowmik</span>
-  </div>
-
-  <div class="footer-right">
-    <span id="live-time">--:--:--</span>
-  </div>
 </footer>
 
     <script src="config.js"></script>
     <script src="script.js"></script>
+    
+    <!-- Footer -->
+    <footer id="appFooter" class="app-footer">
+        <div class="footer-content">
+            <div class="footer-info">
+                <span class="footer-version">Version 1.0 | Created: 07/02/2026</span>
+                <span class="footer-separator">•</span>
+                <span class="footer-author">Developed by Ankan Bhowmik</span>
+            </div>
+            <div class="footer-time">
+                <span id="currentTime"></span>
+            </div>
+        </div>
+    </footer>
 </body>
+
 </html>

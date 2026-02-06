@@ -5,10 +5,55 @@ let savingsFunds = [];
 let debts = [];
 let isLoggedIn = false;
 
-// Initialize App
+// Initialize App with Loading Screen
 document.addEventListener('DOMContentLoaded', function() {
+    // Simulate loading (minimum 1.5 seconds for smooth experience)
+    const minLoadTime = 1500;
+    const startTime = Date.now();
+    
+    // Initialize app
     initializeApp();
+    
+    // Calculate remaining time to show loader
+    const elapsedTime = Date.now() - startTime;
+    const remainingTime = Math.max(0, minLoadTime - elapsedTime);
+    
+    // Hide loading screen after minimum time
+    setTimeout(() => {
+        const loadingScreen = document.getElementById('loadingScreen');
+        loadingScreen.classList.add('fade-out');
+        
+        // Remove from DOM after fade out
+        setTimeout(() => {
+            loadingScreen.style.display = 'none';
+        }, 500);
+    }, remainingTime);
+    
+    // Start real-time clock
+    updateTime();
+    setInterval(updateTime, 1000);
 });
+
+// Real-time clock function
+function updateTime() {
+    const now = new Date();
+    const options = {
+        weekday: 'short',
+        year: 'numeric',
+        month: 'short',
+        day: 'numeric',
+        hour: '2-digit',
+        minute: '2-digit',
+        second: '2-digit',
+        hour12: true
+    };
+    
+    const timeString = now.toLocaleString('en-IN', options);
+    const timeElement = document.getElementById('currentTime');
+    if (timeElement) {
+        timeElement.textContent = timeString;
+    }
+}
 
 function initializeApp() {
     // Set today's date as default
